@@ -32,12 +32,10 @@ $kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"templa
 $ helm init --service-account tiller --upgrade  
 
 ## check the operation  
-$ kubectl get services  
-NAME                      TYPE           CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)          AGE  
-hello-chart-hello-nginx   LoadBalancer   10.100.6.103     a59ab49439bd011e9a5580a2ce4b1bdd-1160858148.eu-west-2.elb.amazonaws.com   80:30505/TCP     114s 
-kubernetes                ClusterIP      10.100.0.1       <none>                                                                    443/TCP          2d23h  
-
-$ curl -i a59ab49439bd011e9a5580a2ce4b1bdd-1160858148.eu-west-2.elb.amazonaws.com  
+$ HOSTNAME=$(kubectl get service hello-chart-hello-nginx -o jsonpath='{..loadBalancer.ingress[?(@hostname)].hostname}')
+$ echo $HOSTNAME
+a59ab49439bd011e9a5580a2ce4b1bdd-1160858148.eu-west-2.elb.amazonaws.com
+$ curl -i $HOSTNAME  
 HTTP/1.1 200 OK
 Server: nginx/1.17.0
 Date: Mon, 01 Jul 2019 07:21:58 GMT
