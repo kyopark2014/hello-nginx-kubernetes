@@ -32,9 +32,9 @@ $kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"templa
 $ helm init --service-account tiller --upgrade  
 
 ## check the operation  
-$ HOSTNAME=$(kubectl get service hello-chart-hello-nginx -o jsonpath='{..loadBalancer.ingress[?(@hostname)].hostname}')
-$ echo $HOSTNAME
-a59ab49439bd011e9a5580a2ce4b1bdd-1160858148.eu-west-2.elb.amazonaws.com
+$ HOSTNAME=$(kubectl get service hello-chart-hello-nginx -o jsonpath='{..loadBalancer.ingress[?(@hostname)].hostname}')  
+$ echo $HOSTNAME  
+a59ab49439bd011e9a5580a2ce4b1bdd-1160858148.eu-west-2.elb.amazonaws.com  
 $ curl -i $HOSTNAME  
 HTTP/1.1 200 OK
 Server: nginx/1.17.0
